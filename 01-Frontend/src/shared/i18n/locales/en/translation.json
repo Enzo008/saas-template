@@ -1,0 +1,149 @@
+{
+  "common": {
+    "titles": {
+      "filters": "Filter"
+    },
+    "notification": "notification",
+    "theme": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System",
+      "select": "Toggle theme"
+    },
+    "language": {
+      "en": "English",
+      "es": "Spanish",
+      "select": "Select language"
+    },
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "add": "Add",
+      "search": "Search",
+      "filter": "Filter",
+      "apply": "Apply",
+      "reset": "Reset",
+      "close": "Close",
+      "open": "Open",
+      "confirm": "Confirm",
+      "new": "New",
+      "update": "Update",
+      "selected": "Selected",
+      "clear": "Clear",
+      "filter_by": "Filter by",
+      "refresh": "Refresh"
+    },
+    "headers": {
+      "actions": "Actions"
+    },
+    "messages": {
+      "loading": "Loading...",
+      "error": "An error has occurred",
+      "success": "Operation successful",
+      "noData": "No data available",
+      "noOptions": "No options available",
+      "sessionExpired": "Your session has expired, please log in again",
+      "no_results": "No results found"
+    }
+  },
+  "auth": {
+    "login": "Log in",
+    "logout": "Log out",
+    "username": "Username",
+    "password": "Password",
+    "forgotPassword": {
+      "title": "Recover Password",
+      "description": "Enter your email to receive a recovery link",
+      "emailLabel": "Email",
+      "emailPlaceholder": "your@email.com",
+      "submitButton": "Send Recovery Link",
+      "backToLogin": "Back to login",
+      "emailSentTitle": "Email Sent",
+      "emailSentDescription": "We have sent a recovery link to your email. Please check your inbox.",
+      "emailNotFound": "Email not registered",
+      "errorProcessingRequest": "Error processing request"
+    },
+    "resetPassword": {
+      "title": "Reset Password",
+      "description": "Enter your new password",
+      "newPasswordLabel": "New password",
+      "confirmPasswordLabel": "Confirm password",
+      "submitButton": "Change Password",
+      "passwordRequirements": "Password must be at least 8 characters",
+      "passwordMismatch": "Passwords do not match",
+      "successTitle": "Password Updated!",
+      "successDescription": "Your password has been successfully updated",
+      "backToLogin": "Back to login",
+      "invalidToken": "The recovery link is invalid or has expired",
+      "invalidTokenTitle": "Invalid Link",
+      "invalidTokenDescription": "The recovery link you used is invalid or has expired. Please request a new link.",
+      "errorResetting": "Error resetting password"
+    },
+    "changePassword": {
+      "title": "Password Change Required",
+      "description": "Please set a new password to continue",
+      "newPasswordLabel": "New password",
+      "newPasswordPlaceholder": "Enter your new password",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordPlaceholder": "Confirm your new password",
+      "submitButton": "Change Password",
+      "changingPassword": "Changing password...",
+      "passwordRequirements": "Password must be at least 6 characters",
+      "passwordMismatch": "Passwords do not match",
+      "errorChangingPassword": "Error changing password. Please try again.",
+      "passwordChanged": "Password changed successfully"
+    },
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "passwordMismatch": "Passwords do not match",
+    "passwordChanged": "Password changed successfully"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome, {{name}}",
+    "summary": "Summary",
+    "recentActivity": "Recent Activity",
+    "statistics": "Statistics",
+    "quickActions": "Quick Actions"
+  },
+  "table": {
+    "column_visibility": "Column Visibility",
+    "toggle_columns": "Toggle Columns",
+    "show_all": "Show All",
+    "hide_all": "Hide All",
+    "page_info": "Page {{current}} of {{total}}",
+    "first_page": "First Page",
+    "previous_page": "Previous Page",
+    "next_page": "Next Page",
+    "last_page": "Last Page",
+    "rows_per_page": "Rows per page",
+    "total_records": "Total: {{count}} records",
+    "reorder_column": "Reorder Column",
+    "unpin_all": "Unpin All"
+  },
+  "notifications": {
+    "success": {
+      "title": "Success!",
+      "message": "The operation completed successfully."
+    },
+    "error": {
+      "title": "Error",
+      "message": "An error occurred while processing your request."
+    },
+    "warning": {
+      "title": "Warning",
+      "message": "There is an issue that requires your attention."
+    },
+    "info": {
+      "title": "Information",
+      "message": "Important information for you."
+    },
+    "dynamic": {
+      "title": "Dynamic Content",
+      "message": "You have received {{count}} {{item}}."
+    }
+  }
+}

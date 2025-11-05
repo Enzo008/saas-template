@@ -1,0 +1,752 @@
+======================================================================
+SISTEMA MEAL MARCO LÓGICO - PLANIFICACIÓN PARA PLANNER
+======================================================================
+
+🏷️ ETIQUETAS PARA ESTE PROYECTO (orden de colores 1-25):
+
+1. Rosa → Feature
+2. Rojo → Chore  
+3. Amarillo → Documentacion
+4. Verde → UI
+5. Azul → UX
+6. Púrpura → FE
+7. Bronce → BE
+8. Verde lima → DB
+9. Aguamarina → DevOps
+10. Gris → QA
+11. Plata → Integracion
+12. Marrón → Presupuesto
+13. Cereza → Ejecucion
+14. Naranja → Beneficiarios
+15. Melocotón → Reportes
+16. Caléndula → Vinculacion
+17. Verde claro → Metas
+18. Verde oscuro → Planificacion
+19. Verde azulado → Dashboard
+20. Azul claro → Indicadores
+21. Azul oscuro → Actividades
+22. Lavanda → Catalogos
+23. Ciruela → Usuarios
+24. Gris claro → Marco Logico
+25. Gris oscuro → Auth
+
+💡 CÓMO USAR: Las etiquetas en las tareas aparecen como NOMBRES (Feature, BE, Auth)
+   pero en el planner selecciona los COLORES correspondientes (Rosa, Azul oscuro, Gris oscuro)
+
+======================================================================
+
+SPRINT 0 — FUNDACIONES Y INFRAESTRUCTURA BASE
+
+Título: [S0][P1] JWT + endpoints base + middleware de autenticación
+Etiquetas: Feature, BE, Auth
+Descripción (DoD): Login y refresh funcionales, tokens firmados, middleware de validación y manejo de errores uniforme con ApiResponse.
+Checklist:
+- DTOs Login/Refresh con validaciones
+- Servicio Auth (emitir/validar JWT)
+- Endpoints /auth/login y /auth/refresh
+- Middleware TokenValidationMiddleware
+- Manejo de errores uniforme (ApiResponse)
+- Swagger + ejemplos
+- Tests unitarios y de integración
+Dependencias: [S0] DAO base; [S0] Esquema usuarios/roles
+
+---
+
+Título: [S0][P1] DAO base + Helper.SqlHelper + plantillas CRUD
+Etiquetas: BE, Chore
+Descripción (DoD): Base de repositorio con helpers para SP, transacciones y plantillas CRUD reutilizables.
+Checklist:
+- Clase BaseDAO/BaseRepository extendida
+- Helper parámetros/TVPs
+- Plantillas CRUD para catálogos (TB_) y maestros (TM_)
+- Manejo transaccional robusto
+- Tests de integración mínimos
+Dependencias: —
+
+---
+
+Título: [S0][P1] Esquema usuarios/roles/permisos + menús + ubicaciones
+Etiquetas: DB, Auth, Feature
+Descripción (DoD): Tablas de seguridad y catálogos base con FKs/índices + scripts documentados.
+Checklist:
+- Tablas TB_ROL/TB_PERMISO/TM_USUARIO
+- TV_ROL_PERMISO/TV_PERMISO_USUARIO/TV_MENU_USUARIO
+- TM_MENU con jerarquía y TV_ROL_MENU
+- TM_UBICACION con estructura jerárquica
+- Catálogos: TB_CARGO/TB_DOCUMENTO_IDENTIDAD/TB_GENERO/TB_NACIONALIDAD
+- Índices optimizados y FKs
+- Scripts up/down documentados
+Dependencias: —
+
+---
+
+Título: [S0][P1] Marco Lógico corregido + nuevas tablas
+Etiquetas: DB, Marco Logico, Feature
+Descripción (DoD): Estructura corregida del Marco Lógico sin "fintas" y con relaciones correctas.
+Checklist:
+- TM_PROYECTO → TM_SUB_PROYECTO → TM_OBJETIVO → TM_OBJETIVO_ESPECIFICO → TM_RESULTADO
+- TM_ACTIVIDAD (FK: RESULTADO) + TB_TIPO_ACTIVIDAD
+- TM_SUB_ACTIVIDAD (FK: ACTIVIDAD) + TB_TIPO_SUB_ACTIVIDAD
+- TM_INDICADOR con FKs polimórficas (RESULTADO/SUB_PROYECTO/OBJETIVO/OBJETIVO_ESPECIFICO)
+- Eliminar INDTIPIND usar FKs específicas
+- Catálogos: TB_FINANCIADOR/TB_IMPLEMENTADOR/TB_MONEDA/TB_UNIDAD
+- Índices y documentación de relaciones
+Dependencias: —
+
+---
+
+Título: [S0][P1] App shell + layouts + providers + error management
+Etiquetas: FE, Chore
+Descripción (DoD): App funcional con layout, rutas públicas/privadas, providers y manejo de errores.
+Checklist:
+- Layout principal responsivo
+- Router + guards por roles
+- Providers (React Query, Zustand, i18n, Theme)
+- ErrorManagerProvider centralizado
+- Estados loading/empty/error consistentes
+- Toast notifications con react-toastify
+Dependencias: —
+
+---
+
+Título: [S0][P2] Componentes UI base + tabla con paginación servidor
+Etiquetas: FE, Chore
+Descripción (DoD): Kit UI reutilizable específico para gestión administrativa.
+Checklist:
+- Modal/Confirm con Radix UI
+- Tabla + paginación del servidor (React Table)
+- FormFields reutilizables (RHF + Zod)
+- Componentes de filtrado y búsqueda
+- Breadcrumbs contextuales
+- Ejemplos y documentación
+Dependencias: —
+
+---
+
+Título: [S0][P2] CI básico + linters + estructura de testing
+Etiquetas: DevOps, Chore
+Descripción (DoD): Pipeline automatizado que ejecuta build, lint y tests con reportes.
+Checklist:
+- Workflow CI para PR/main
+- ESLint/Prettier FE + análisis BE
+- Tests mínimos pero funcionales
+- Variables de entorno seguras
+- Badge de estado en README
+Dependencias: —
+
+======================================================================
+
+SPRINT 1 — GESTIÓN COMPLETA DE USUARIOS + CATÁLOGOS
+
+Título: [S1][P1] CRUD usuarios + proceso de 3 pasos
+Etiquetas: BE, Usuarios, Feature
+Descripción (DoD): API completa para gestión de usuarios con proceso estructurado en 3 pasos.
+Checklist:
+- DTOs para creación/edición de usuarios
+- Paso 1: Datos personales + asignación de rol
+- Paso 2: Menús automáticos por rol + menús específicos
+- Paso 3: Permisos específicos + accesos jerárquicos
+- Controller + Swagger documentado
+- Validaciones de negocio (unicidad, roles válidos)
+- Tests completos
+Dependencias: [S0] Esquema usuarios; [S0] DAO base
+
+---
+
+Título: [S1][P1] Gestión de usuarios + wizard de 3 pasos
+Etiquetas: FE, Usuarios, Feature
+Descripción (DoD): Interfaz completa para crear/editar usuarios con wizard guiado.
+Checklist:
+- Tabla de usuarios con paginación del servidor
+- Modal wizard de 3 pasos (RHF + Zod)
+- Paso 1: Formulario datos personales
+- Paso 2: Gestión de menús (por rol + específicos)
+- Paso 3: Asignación de permisos jerárquicos
+- Validaciones en tiempo real
+- Estados de carga y feedback
+- Tests E2E del flujo completo
+Dependencias: [S1] API usuarios; [S0] Componentes UI
+
+---
+
+Título: [S1][P1] CRUD catálogos base (roles, permisos, ubicaciones)
+Etiquetas: BE, Catalogos, Feature
+Descripción (DoD): APIs para gestión de catálogos fundamentales del sistema.
+Checklist:
+- CRUD TB_ROL/TB_PERMISO con validaciones
+- CRUD TM_UBICACION con jerarquía
+- CRUD catálogos: TB_CARGO/TB_DOCUMENTO_IDENTIDAD/TB_GENERO/TB_NACIONALIDAD
+- Endpoints de consulta optimizados (autocomplete, jerarquías)
+- Validaciones de integridad referencial
+- Swagger + tests
+Dependencias: [S0] Esquema; [S0] DAO base
+
+---
+
+Título: [S1][P1] Gestión de catálogos + componentes jerárquicos
+Etiquetas: FE, Catalogos, Feature
+Descripción (DoD): Interfaces para administrar catálogos con soporte para jerarquías.
+Checklist:
+- CRUD roles y permisos con tabla filtrable
+- Gestión de ubicaciones con vista de árbol
+- CRUD catálogos simples (género, nacionalidad, etc.)
+- Componente TreeSelect para jerarquías
+- Formularios con validación contextual
+- Búsqueda y filtrado eficiente
+Dependencias: [S1] API catálogos; [S0] Componentes UI
+
+---
+
+Título: [S1][P2] Sistema de autorización + guards por recurso
+Etiquetas: BE, Auth, Feature
+Descripción (DoD): Autorización granular por roles, permisos y acceso a recursos específicos.
+Checklist:
+- Middleware de autorización por endpoint
+- Guards para acceso a proyectos/sub-proyectos/metas
+- Claims dinámicos basados en TV_USUARIO_ACCESO
+- Helpers para validar permisos en controllers
+- Tests de autorización
+Dependencias: [S0] JWT; [S1] CRUD usuarios
+
+---
+
+Título: [S1][P2] Login + guards + gestión de sesión
+Etiquetas: FE, Auth, Feature
+Descripción (DoD): Flujo de autenticación completo con guards reactivos y gestión de permisos.
+Checklist:
+- Formulario login (RHF + Zod)
+- Guards por rutas y permisos específicos
+- Interceptor para refresh automático
+- Zustand store para auth state
+- Manejo de errores 401/403
+- Redirecciones contextuales post-login
+Dependencias: [S1] Autorización BE; [S0] App shell
+
+---
+
+Título: [S1][P2] Testing gestión de usuarios + smoke tests
+Etiquetas: QA, Chore
+Descripción (DoD): Casos de prueba que cubren el flujo completo de gestión de usuarios.
+Checklist:
+- E2E: Crear usuario completo (3 pasos)
+- E2E: Login con diferentes roles
+- Tests de autorización por permisos
+- Smoke tests para catálogos
+- Reporte de cobertura
+Dependencias: [S1] todas las tareas de usuarios/auth
+
+======================================================================
+
+SPRINT 2 — MARCO LÓGICO BASE + NAVEGACIÓN JERÁRQUICA
+
+Título: [S2][P1] CRUD estructura jerárquica corregida
+Etiquetas: BE, Marco Logico, Feature
+Descripción (DoD): API completa para crear/editar la estructura del Marco Lógico hasta Resultado.
+Checklist:
+- CRUD TM_PROYECTO con validaciones de unicidad
+- CRUD TM_SUB_PROYECTO con períodos y responsables
+- CRUD TM_OBJETIVO/TM_OBJETIVO_ESPECIFICO con jerarquía
+- CRUD TM_RESULTADO vinculado a objetivos específicos
+- Endpoints de navegación jerárquica optimizados
+- Validaciones de integridad y períodos
+- Swagger + tests completos
+Dependencias: [S0] Marco Lógico DB; [S0] DAO base
+
+---
+
+Título: [S2][P1] Navegación jerárquica + formularios anidados
+Etiquetas: FE, Marco Logico, Feature
+Descripción (DoD): Interfaz para crear y navegar la estructura del Marco Lógico con UX intuitiva.
+Checklist:
+- Vista de árbol expandible para navegación
+- Breadcrumbs contextuales por nivel
+- Formularios modales para cada entidad
+- Wizard para creación de proyecto completo
+- Validación de jerarquías en frontend
+- Drag & drop para reordenamiento (opcional)
+Dependencias: [S2] API Marco Lógico; [S0] Componentes UI
+
+---
+
+Título: [S2][P1] CRUD actividades + sub-actividades + tipos
+Etiquetas: BE, Actividades, Feature
+Descripción (DoD): Gestión completa de actividades con tipificación y sub-actividades.
+Checklist:
+- CRUD TM_ACTIVIDAD vinculada a TM_RESULTADO
+- CRUD TM_SUB_ACTIVIDAD con FK a actividad padre
+- CRUD TB_TIPO_ACTIVIDAD/TB_TIPO_SUB_ACTIVIDAD
+- Validaciones: una actividad no puede tener metas si tiene sub-actividades
+- Endpoints para árbol de actividades por resultado
+- Tests de integridad de jerarquías
+Dependencias: [S2] estructura base Marco Lógico
+
+---
+
+Título: [S2][P1] Gestión de actividades + vista de árbol
+Etiquetas: FE, Actividades, Feature
+Descripción (DoD): Interfaz para gestionar actividades y sub-actividades con tipificación.
+Checklist:
+- Vista de árbol para actividades por resultado
+- Formularios con selección de tipo
+- Validación: no permitir sub-actividades si ya tiene metas
+- Reordenamiento de actividades
+- Filtros por tipo de actividad
+- Modal de confirmación para eliminación con dependencias
+Dependencias: [S2] API actividades; [S2] navegación Marco Lógico
+
+---
+
+Título: [S2][P1] CRUD indicadores polimórficos + validaciones
+Etiquetas: BE, Indicadores, Feature
+Descripción (DoD): Sistema de indicadores con FKs polimórficas elimina la necesidad de "fintas".
+Checklist:
+- CRUD TM_INDICADOR con FKs polimórficas
+- Tipos: Resultado, Institucional, Objetivo, Objetivo Específico
+- Validaciones de FK según tipo de indicador
+- Endpoints optimizados por tipo de padre
+- Helper para determinar jerarquía del indicador
+- Tests exhaustivos de casos polimórficos
+Dependencias: [S2] Marco Lógico + Actividades
+
+---
+
+Título: [S2][P1] Gestión de indicadores + formularios contextuales
+Etiquetas: FE, Indicadores, Feature
+Descripción (DoD): Interfaz contextual para crear indicadores según su tipo y nivel jerárquico.
+Checklist:
+- Formularios contextuales por tipo de indicador
+- Validación automática de FK según contexto
+- Vista agregada de indicadores por proyecto
+- Filtros por tipo y nivel jerárquico
+- Componente de selección de unidades
+- Preview de fórmulas/cálculos
+Dependencias: [S2] API indicadores; [S2] Marco Lógico FE
+
+---
+
+Título: [S2][P2] Dashboard de Marco Lógico + navegación ejecutiva
+Etiquetas: FE, Dashboard, Feature
+Descripción (DoD): Vista ejecutiva del Marco Lógico con métricas y navegación rápida.
+Checklist:
+- Cards resumen por proyecto activo
+- Métricas: proyectos, objetivos, resultados, actividades, indicadores
+- Navegación rápida a elementos específicos
+- Filtros por estado/período/responsable
+- Gráficos básicos de distribución
+- Estados de avance visual
+Dependencias: [S2] APIs de Marco Lógico completas
+
+---
+
+Título: [S2][P2] Testing Marco Lógico + validaciones de integridad
+Etiquetas: QA, Chore
+Descripción (DoD): Casos de prueba que validan la integridad del Marco Lógico corregido.
+Checklist:
+- E2E: Crear proyecto completo hasta indicadores
+- Tests de integridad: eliminación en cascada
+- Validación de jerarquías complejas
+- Tests de indicadores polimórficos
+- Performance tests con datasets grandes
+Dependencias: [S2] todas las tareas de Marco Lógico
+
+======================================================================
+
+SPRINT 3 — CADENA DE RESULTADO + PLANIFICACIÓN DE METAS
+
+Título: [S3][P1] Sistema de planificación referencial
+Etiquetas: BE, Planificacion, Feature
+Descripción (DoD): API para crear valores referenciales que guían la creación posterior de metas.
+Checklist:
+- CRUD TV_CADENA_RESULTADO_UBICACION con valores técnicos
+- CRUD TV_CADENA_RESULTADO_PERIODO por año
+- CRUD TV_CADENA_RESULTADO_IMPLEMENTADOR por organización
+- CRUD TV_CADENA_RESULTADO_FINANCIADOR (solo presupuestario)
+- Validaciones de consistencia entre cadenas
+- Endpoints de consulta agregada para validaciones
+- Tests de integridad entre cadenas
+Dependencias: [S2] Indicadores + catálogos
+
+---
+
+Título: [S3][P1] Interfaces de planificación + matriz de valores
+Etiquetas: FE, Planificacion, Feature
+Descripción (DoD): Interfaces para definir valores referenciales con vistas matriciales intuitivas.
+Checklist:
+- Matriz de planificación por ubicación/período
+- Formularios dinámicos por implementador
+- Vista consolidada de cadena de resultado
+- Validaciones cruzadas en tiempo real
+- Import/export de planificación (Excel)
+- Calculadora de distribución automática
+Dependencias: [S3] API Cadena Resultado
+
+---
+
+Título: [S3][P1] CRUD metas guiadas + validaciones contra cadena
+Etiquetas: BE, Metas, Feature
+Descripción (DoD): Sistema de metas con validaciones automáticas contra valores de cadena de resultado.
+Checklist:
+- CRUD TM_META con guías de planificación
+- Validaciones: período, implementador, ubicación, usuario responsable
+- Algoritmo de validación contra cadena de resultado
+- Bloqueos por inconsistencias en planificación
+- Endpoints de consulta con estado de validación
+- Tests de casos límite y validaciones
+Dependencias: [S3] Cadena Resultado completo
+
+---
+
+Título: [S3][P1] Asistente de creación + validador en tiempo real
+Etiquetas: FE, Metas, Feature
+Descripción (DoD): Wizard guiado para crear metas con validación automática contra planificación.
+Checklist:
+- Wizard de creación guiado por cadena de resultado
+- Selector contextual: período/implementador/ubicación/responsable
+- Validador en tiempo real contra valores planificados
+- Alertas de desviación/inconsistencias
+- Vista previa de impacto en planificación
+- Modo "override" para casos especiales
+Dependencias: [S3] API Metas; [S3] Cadena Resultado FE
+
+---
+
+Título: [S3][P2] Asociación metas a indicadores/actividades/sub-actividades
+Etiquetas: BE, Vinculacion, Feature
+Descripción (DoD): Sistema que vincula metas a diferentes niveles según reglas de negocio.
+Checklist:
+- Algoritmo de vinculación: indicador → meta directa
+- Vinculación: actividad → meta (solo si no tiene sub-actividades)
+- Vinculación: sub-actividad → meta (excluye actividad padre)
+- Validaciones de exclusividad por nivel
+- Endpoints de consulta por tipo de vinculación
+- Tests de reglas complejas de vinculación
+Dependencias: [S3] Metas + [S2] estructura completa
+
+---
+
+Título: [S3][P2] Reportes de planificación + dashboards de consistencia
+Etiquetas: FE, Reportes, Feature
+Descripción (DoD): Reportes que muestran consistencia entre planificación y metas creadas.
+Checklist:
+- Reporte de cobertura: cadena vs metas
+- Dashboard de inconsistencias por proyecto
+- Métricas de planificación vs ejecución planificada
+- Exportación de reportes (PDF/Excel)
+- Alertas por desviaciones significativas
+- Filtros avanzados por múltiples dimensiones
+Dependencias: [S3] APIs completas de planificación
+
+---
+
+Título: [S3][P2] Testing planificación + casos complejos de validación
+Etiquetas: QA, Chore
+Descripción (DoD): Casos de prueba que cubren escenarios complejos de planificación y validación.
+Checklist:
+- E2E: Planificación completa → creación de metas
+- Tests de validaciones cruzadas
+- Casos límite: sobreplanificación/subplanificación
+- Tests de vinculación por niveles
+- Performance con múltiples proyectos activos
+Dependencias: [S3] todas las tareas de planificación
+
+======================================================================
+
+SPRINT 4 — EJECUCIÓN + REGISTRO DE BENEFICIARIOS Y ACTIVIDADES
+
+Título: [S4][P1] CRUD beneficiarios + validaciones de unicidad
+Etiquetas: BE, Beneficiarios, Feature
+Descripción (DoD): Sistema completo de gestión de beneficiarios con controles de duplicidad.
+Checklist:
+- CRUD TM_BENEFICIARIO con validaciones completas
+- Algoritmo de detección de duplicados
+- CRUD TV_DOCUMENTO_IDENTIDAD_BENEFICIARIO
+- Validaciones por nacionalidad/tipo documento
+- Endpoints de búsqueda avanzada
+- Import masivo con validaciones
+- Tests de casos de duplicidad
+Dependencias: [S1] Catálogos documentos/nacionalidades
+
+---
+
+Título: [S4][P1] Gestión de beneficiarios + detector de duplicados
+Etiquetas: FE, Beneficiarios, Feature
+Descripción (DoD): Interface completa para registrar beneficiarios con UX optimizada.
+Checklist:
+- Formulario de registro con validaciones dinámicas
+- Detector de duplicados en tiempo real
+- Modal de resolución de conflictos
+- Búsqueda avanzada con múltiples filtros
+- Import masivo con preview y validaciones
+- Vista de ficha completa del beneficiario
+Dependencias: [S4] API Beneficiarios
+
+---
+
+Título: [S4][P1] Sistema de asignación + control temporal
+Etiquetas: BE, Ejecucion, Feature
+Descripción (DoD): API para vincular beneficiarios a metas con control de períodos y ubicaciones.
+Checklist:
+- CRUD TV_META_BENEFICIARIO con validaciones
+- Control de períodos de ejecución
+- Validaciones de ubicación geográfica
+- Algoritmo anti-duplicación por meta/período
+- Endpoints de consulta por meta/beneficiario
+- Reportes de cobertura por meta
+- Tests de integridad temporal
+Dependencias: [S4] Beneficiarios + [S3] Metas
+
+---
+
+Título: [S4][P1] Asignación masiva + control de períodos
+Etiquetas: FE, Ejecucion, Feature
+Descripción (DoD): Interface para asignar beneficiarios a metas con herramientas de gestión masiva.
+Checklist:
+- Selector de metas por proyecto/ubicación
+- Asignación individual y masiva de beneficiarios
+- Control visual de períodos de ejecución
+- Validaciones geográficas automáticas
+- Vista de progreso por meta
+- Reportes de asignación en tiempo real
+Dependencias: [S4] API Meta Beneficiario
+
+---
+
+Título: [S4][P1] Registro de avances + validaciones de unidad
+Etiquetas: BE, Ejecucion, Feature
+Descripción (DoD): Sistema para registrar ejecución de metas que no involucran beneficiarios.
+Checklist:
+- CRUD TV_META_EJECUCION con validaciones por unidad
+- Control de períodos de ejecución
+- Validaciones según tipo de indicador/actividad
+- Cálculos automáticos de avance
+- Endpoints de consulta agregada
+- Validaciones contra metas planificadas
+- Tests de consistencia de datos
+Dependencias: [S3] Metas + catálogos de unidades
+
+---
+
+Título: [S4][P1] Captura de avances + calculadoras contextuales
+Etiquetas: FE, Ejecucion, Feature
+Descripción (DoD): Interface optimizada para capturar avances según tipo de unidad y contexto.
+Checklist:
+- Formularios dinámicos por tipo de unidad
+- Calculadoras contextuales (%, cantidades, etc.)
+- Validación en tiempo real contra planificado
+- Vista de progreso acumulado
+- Registro fotográfico/evidencias (opcional)
+- Alertas de sobreejecución
+Dependencias: [S4] API Meta Ejecución
+
+---
+
+Título: [S4][P2] Dashboard operativo + métricas en tiempo real
+Etiquetas: FE, Dashboard, Feature
+Descripción (DoD): Vista operativa para monitorear ejecución con métricas actualizadas.
+Checklist:
+- Dashboard con métricas de ejecución por proyecto
+- Gráficos de avance por meta/indicador
+- Alertas de metas retrasadas/sobreejecutadas
+- Filtros por responsable/ubicación/período
+- Exportación de reportes operativos
+- Vista móvil optimizada para campo
+Dependencias: [S4] APIs de ejecución completas
+
+---
+
+Título: [S4][P2] Testing ejecución + validaciones temporales
+Etiquetas: QA, Chore
+Descripción (DoD): Casos de prueba que cubren flujos de ejecución y validaciones complejas.
+Checklist:
+- E2E: Registro completo beneficiario → asignación → ejecución
+- Tests de validaciones temporales y geográficas
+- Casos límite: sobreejecución/duplicación
+- Tests de performance con grandes volúmenes
+- Validación de cálculos automáticos
+Dependencias: [S4] todas las tareas de ejecución
+
+======================================================================
+
+SPRINT 5 — GESTIÓN PRESUPUESTARIA + INTEGRACIÓN TÉCNICO-FINANCIERO
+
+Título: [S5][P1] Sistema presupuestario + cadena financiera
+Etiquetas: BE, Presupuesto, Feature
+Descripción (DoD): API completa para gestión presupuestaria integrada con Marco Lógico.
+Checklist:
+- CRUD TM_META_PRESUPUESTO vinculado a metas técnicas
+- CRUD TM_META_GASTO asociado a presupuestos
+- Sistema de cadena de resultado financiera
+- Cálculos automáticos de % ejecución presupuestaria
+- TM_PRESUPUESTO_HISTORIAL para auditoría
+- Validaciones de consistencia técnico-financiera
+- Tests de integridad presupuestaria
+Dependencias: [S3] Metas + [S4] Ejecución
+
+---
+
+Título: [S5][P1] Gestión presupuestaria + matriz de planificación
+Etiquetas: FE, Presupuesto, Feature
+Descripción (DoD): Interface integrada para planificación y seguimiento presupuestario.
+Checklist:
+- Matriz de planificación presupuestaria
+- Vinculación visual técnico-presupuestaria
+- Formularios de registro de gastos
+- Dashboard de ejecución financiera
+- Alertas de desviaciones presupuestarias
+- Reportes financieros por financiador
+Dependencias: [S5] API Presupuesto
+
+---
+
+Título: [S5][P1] Vinculación técnico-presupuestaria + validaciones cruzadas
+Etiquetas: BE, Vinculacion, Feature
+Descripción (DoD): Sistema que corrige la desconexión entre metas técnicas y presupuestarias.
+Checklist:
+- Nueva tabla de vinculación META_TECNICA ↔ META_PRESUPUESTARIA
+- Validaciones cruzadas de consistencia
+- Algoritmos de distribución proporcional
+- Reportes de análisis costo-efectividad
+- APIs de consulta integrada
+- Migración de datos existentes
+Dependencias: [S5] Presupuesto + [S4] Ejecución
+
+---
+
+Título: [S5][P1] Suite de reportes + análisis de variaciones
+Etiquetas: FE, Reportes, Feature
+Descripción (DoD): Reportes financieros completos con análisis de desviaciones y tendencias.
+Checklist:
+- Reporte de ejecución presupuestaria por proyecto
+- Análisis de variaciones planificado vs ejecutado
+- Reportes por financiador y implementador
+- Dashboard ejecutivo financiero
+- Exportación a formatos estándar (Excel, PDF)
+- Gráficos de tendencias y proyecciones
+Dependencias: [S5] Integración completa
+
+---
+
+Título: [S5][P2] Sistema de gestión de cambios + workflow
+Etiquetas: BE, Integracion, Feature
+Descripción (DoD): API para gestionar solicitudes de cambios con workflow de aprobación.
+Checklist:
+- CRUD TM_SOLICITUD_CAMBIO con estados
+- CRUD TM_SOLICITUD_CAMBIO_DETALLE para especificaciones
+- Workflow de aprobación por roles
+- Notificaciones automáticas por cambios de estado
+- Auditoría completa de cambios
+- APIs de consulta por estado/usuario
+Dependencias: [S1] Auth + [S5] Integración
+
+---
+
+Título: [S5][P2] Interface de solicitudes + workflow visual
+Etiquetas: FE, Integracion, Feature
+Descripción (DoD): Interface para crear y gestionar solicitudes de cambio con workflow visual.
+Checklist:
+- Formulario de solicitud de cambios
+- Vista de workflow con estados
+- Panel de aprobaciones por rol
+- Historial de cambios por proyecto
+- Notificaciones en tiempo real
+- Reportes de cambios aprobados/rechazados
+Dependencias: [S5] API Solicitudes Cambio
+
+---
+
+Título: [S5][P2] Testing integración + validaciones financieras
+Etiquetas: QA, Chore
+Descripción (DoD): Casos de prueba que validan la integración completa del sistema.
+Checklist:
+- E2E: Flujo completo desde Marco Lógico hasta reportes financieros
+- Tests de integración técnico-presupuestaria
+- Validaciones de consistencia en escenarios complejos
+- Tests de performance con datos reales
+- Casos de regresión para migración de datos
+Dependencias: [S5] todas las tareas de integración
+
+======================================================================
+
+SPRINT 6 — REPORTES AVANZADOS + OPTIMIZACIÓN + DOCUMENTACIÓN
+
+Título: [S6][P1] Dashboard ejecutivo + métricas KPI
+Etiquetas: FE, Dashboard, Feature
+Descripción (DoD): Dashboard ejecutivo con métricas clave y análisis de tendencias.
+Checklist:
+- KPIs por proyecto: técnicos y financieros
+- Gráficos de tendencias y proyecciones
+- Análisis comparativo entre proyectos
+- Métricas de eficiencia y costo-efectividad
+- Filtros avanzados por múltiples dimensiones
+- Exportación de dashboards
+Dependencias: [S5] integración completa
+
+---
+
+Título: [S6][P1] Optimización de consultas + índices
+Etiquetas: BE, Chore
+Descripción (DoD): Optimización de performance para manejo de grandes volúmenes de datos.
+Checklist:
+- Análisis de consultas lentas y optimización
+- Índices adicionales para reportes complejos
+- Caché para consultas frecuentes
+- Paginación optimizada para grandes datasets
+- Monitoreo de performance automático
+- Tests de carga con datos reales
+Dependencias: Sistema completo funcional
+
+---
+
+Título: [S6][P1] Mejoras de UX + accesibilidad + mobile
+Etiquetas: Reportes, Chore
+Descripción (DoD): Mejoras de experiencia de usuario y soporte móvil optimizado.
+Checklist:
+- Optimización responsive para tablets/móviles
+- Mejoras de accesibilidad (WCAG 2.1)
+- Shortcuts de teclado para usuarios avanzados
+- Tour guiado para nuevos usuarios
+- Modo offline básico para captura de datos
+- Tests de usabilidad
+Dependencias: [S5] funcionalidad completa
+
+---
+
+Título: [S6][P2] Monitoreo + logging + alertas
+Etiquetas: DevOps, Chore
+Descripción (DoD): Sistema de monitoreo y alertas para operación en producción.
+Checklist:
+- Logging estructurado con TL_LOG mejorado
+- Monitoreo de performance y errores
+- Alertas automáticas por fallos críticos
+- Dashboard de salud del sistema
+- Backups automáticos y recuperación
+- Documentación de operaciones
+Dependencias: —
+
+---
+
+Título: [S6][P2] Documentación técnica + manual de usuario
+Etiquetas: Documentacion, Chore
+Descripción (DoD): Documentación completa técnica y funcional del sistema.
+Checklist:
+- Manual de usuario por roles
+- Documentación técnica de APIs
+- Diagramas de arquitectura actualizados
+- Guías de configuración e instalación
+- Videos tutoriales para funciones clave
+- FAQ y solución de problemas comunes
+Dependencias: Sistema completo
+
+---
+
+Título: [S6][P2] Testing final + preparación para producción
+Etiquetas: QA, Chore
+Descripción (DoD): Validación final y preparación para despliegue en producción.
+Checklist:
+- Suite completa de tests de regresión
+- Tests de carga y estrés
+- Validación de seguridad y penetración
+- Tests de migración de datos reales
+- Plan de rollback y contingencia
+- Certificación de calidad
+Dependencias: [S6] todas las tareas de optimización

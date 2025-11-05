@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.128-alpha">
+  <PropertyGroup>
+    <StartupCommand>pnpm dev</StartupCommand>
+    <JavaScriptTestRoot>src\</JavaScriptTestRoot>
+    <JavaScriptTestFramework>Jest</JavaScriptTestFramework>
+    
+    <!-- Desactivar completamente la compilación automática -->
+    <ShouldRunBuildScript>false</ShouldRunBuildScript>
+    
+    <!-- Desactivar instalación automática de dependencias -->
+    <ShouldRunNpmInstall>false</ShouldRunNpmInstall>
+    
+    <!-- Directorio donde se colocarán los archivos de producción -->
+    <PublishAssetsDirectory>$(MSBuildProjectDirectory)\dist</PublishAssetsDirectory>
+  </PropertyGroup>
+  
+  <!-- Definir un target personalizado que se ejecutará solo durante la publicación -->
+  <Target Name="CustomBuildForPublish" BeforeTargets="ComputeFilesToPublish">
+    <Message Importance="high" Text="Ejecutando build personalizado para el frontend..." />
+    <Exec Command="pnpm build" WorkingDirectory="$(MSBuildProjectDirectory)" />
+    <Message Importance="high" Text="Build del frontend completado exitosamente." />
+  </Target>
+  
+  <!-- Evitar que se ejecute el build estándar -->
+  <Target Name="PreventDefaultBuild" BeforeTargets="Build">
+    <Message Importance="high" Text="Saltando build estándar del frontend. Se compilará solo durante la publicación." />
+  </Target>
+</Project>

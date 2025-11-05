@@ -1,0 +1,59 @@
+# ============================================
+# SaaS Template - Root .gitignore
+# ============================================
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
+secrets.json
+
+# Build outputs
+dist/
+build/
+out/
+publish/
+
+# Dependencies (handled by subfolders)
+node_modules/
+bin/
+obj/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Database
+*.mdf
+*.ldf
+*.bak
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates

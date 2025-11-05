@@ -1,0 +1,155 @@
+{
+  "common": {
+    "titles": {
+      "filters": "Filtrar"
+    },
+    "notification": "notificación",
+    "theme": {
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema",
+      "select": "Cambiar tema"
+    },
+    "language": {
+      "en": "Inglés",
+      "es": "Español",
+      "select": "Seleccionar idioma"
+    },
+    "actions": {
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "edit": "Editar",
+      "add": "Agregar",
+      "search": "Buscar",
+      "filter": "Filtrar",
+      "apply": "Aplicar",
+      "reset": "Restablecer",
+      "close": "Cerrar",
+      "open": "Abrir",
+      "confirm": "Confirmar",
+      "new": "Nuevo",
+      "update": "Actualizar",
+      "selected": "Seleccionado",
+      "clear": "Limpiar",
+      "filter_by": "Filtrar por",
+      "refresh": "Refrescar"
+    },
+    "headers": {
+      "actions": "Acciones"
+    },
+    "messages": {
+      "loading": "Cargando...",
+      "error": "Ha ocurrido un error",
+      "success": "Operación exitosa",
+      "noData": "No hay datos disponibles",
+      "noOptions": "No hay opciones disponibles",
+      "sessionExpired": "Su sesión ha expirado, por favor inicie sesión nuevamente",
+      "no_results": "No se encontraron resultados"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar sesión",
+      "success": "¡Bienvenido! Has iniciado sesión correctamente"
+    },
+    "logout": {
+      "title": "Cerrar sesión",
+      "success": "Sesión cerrada correctamente"
+    },
+    "username": "Usuario",
+    "password": "Contraseña",
+    "forgotPassword": {
+      "title": "Recuperar contraseña",
+      "description": "Ingresa tu correo electrónico para recibir un enlace de recuperación",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@correo.com",
+      "submitButton": "Enviar enlace de recuperación",
+      "backToLogin": "Volver a iniciar sesión",
+      "emailSentTitle": "Correo enviado",
+      "emailSentDescription": "Hemos enviado un enlace de recuperación a tu correo electrónico. Por favor revisa tu bandeja de entrada.",
+      "emailNotFound": "El correo electrónico no está registrado",
+      "errorProcessingRequest": "Error al procesar la solicitud"
+    },
+    "resetPassword": {
+      "title": "Restablecer contraseña",
+      "description": "Ingresa tu nueva contraseña",
+      "newPasswordLabel": "Nueva contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "submitButton": "Cambiar contraseña",
+      "passwordRequirements": "La contraseña debe tener al menos 8 caracteres",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "successTitle": "¡Contraseña actualizada!",
+      "successDescription": "Tu contraseña ha sido actualizada correctamente",
+      "backToLogin": "Volver a iniciar sesión",
+      "invalidToken": "El enlace de recuperación es inválido o ha expirado",
+      "invalidTokenTitle": "Enlace inválido",
+      "invalidTokenDescription": "El enlace de recuperación que has utilizado es inválido o ha expirado. Por favor, solicita un nuevo enlace.",
+      "errorResetting": "Error al restablecer la contraseña"
+    },
+    "changePassword": {
+      "title": "Cambio de Contraseña Requerido",
+      "description": "Por favor, establezca una nueva contraseña para continuar",
+      "newPasswordLabel": "Nueva contraseña",
+      "newPasswordPlaceholder": "Ingrese su nueva contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Confirme su nueva contraseña",
+      "submitButton": "Cambiar Contraseña",
+      "changingPassword": "Cambiando contraseña...",
+      "passwordRequirements": "La contraseña debe tener al menos 6 caracteres",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "errorChangingPassword": "Error al cambiar la contraseña. Por favor, intente nuevamente.",
+      "passwordChanged": "Contraseña cambiada exitosamente"
+    },
+    "currentPassword": "Contraseña actual",
+    "newPassword": "Nueva contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "passwordMismatch": "Las contraseñas no coinciden",
+    "passwordChanged": "Contraseña cambiada exitosamente"
+  },
+  "dashboard": {
+    "title": "Panel de Control",
+    "welcome": "Bienvenido, {{name}}",
+    "summary": "Resumen",
+    "recentActivity": "Actividad Reciente",
+    "statistics": "Estadísticas",
+    "quickActions": "Acciones Rápidas"
+  },
+  "table": {
+    "column_visibility": "Visibilidad de columnas",
+    "toggle_columns": "Mostrar/Ocultar columnas",
+    "show_all": "Mostrar todas",
+    "hide_all": "Ocultar todas",
+    "page_info": "Página {{current}} de {{total}}",
+    "first_page": "Primera página",
+    "previous_page": "Página anterior",
+    "next_page": "Página siguiente",
+    "last_page": "Última página",
+    "rows_per_page": "Filas por página",
+    "total_records": "Total: {{count}} registros",
+    "reorder_column": "Reordenar columna",
+    "unpin_all": "Desanclar todas"
+  },
+  "notifications": {
+    "success": {
+      "title": "¡Operación exitosa!",
+      "message": "La operación se completó correctamente."
+    },
+    "error": {
+      "title": "Error",
+      "message": "Ha ocurrido un error al procesar la solicitud."
+    },
+    "warning": {
+      "title": "Advertencia",
+      "message": "Hay un problema que requiere tu atención."
+    },
+    "info": {
+      "title": "Información",
+      "message": "Información importante para ti."
+    },
+    "dynamic": {
+      "title": "Contenido dinámico",
+      "message": "Has recibido {{count}} {{item}}."
+    }
+  }
+}

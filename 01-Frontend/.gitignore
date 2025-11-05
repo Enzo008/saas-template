@@ -1,0 +1,91 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+{{ ... }}
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependencies
+node_modules
+jspm_packages/
+
+# Environment variables
+.env.*
+!.env.example
+
+# Keep example and environment-specific files
+# .env.example should be committed
+# .env.development and .env.production should be committed
+# .env.local should NOT be committed (local overrides)
+
+# Build outputs
+dist
+dist-ssr
+build/
+.next/
+out/
+
+# Cache directories
+.npm
+.eslintcache
+.parcel-cache
+.nyc_output
+.cache/
+.vite/
+.rollup.cache/
+
+# Testing
+coverage/
+*.lcov
+.nyc_output
+
+# Editor directories and files
+.vscode/*
+.vs/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.history/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+
+# Security and sensitive files
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Performance monitoring
+performance-audit*
+lighthouse-results*
+
+# Backup files
+*.backup
+*.bak
+*.old
