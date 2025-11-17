@@ -3,14 +3,28 @@
  */
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card';
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import type { UserActivity } from '../types/dashboard.types';
+import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartConfig } from '@/shared/components/ui/chart';
+import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
 
-interface ActivityChartProps {
-  data: UserActivity[];
-}
+const chartData = [
+  { hour: '00:00', users: 120 },
+  { hour: '03:00', users: 80 },
+  { hour: '06:00', users: 150 },
+  { hour: '09:00', users: 450 },
+  { hour: '12:00', users: 680 },
+  { hour: '15:00', users: 520 },
+  { hour: '18:00', users: 720 },
+  { hour: '21:00', users: 380 }
+];
 
-export const ActivityChart = ({ data }: ActivityChartProps) => {
+const chartConfig = {
+  users: {
+    label: "Usuarios",
+    color: "var(--chart-3)",
+  },
+} satisfies ChartConfig;
+
+export const ActivityChart = () => {
   return (
     <Card className="col-span-4">
       <CardHeader>
@@ -19,34 +33,24 @@ export const ActivityChart = ({ data }: ActivityChartProps) => {
           Usuarios activos por hora del día
         </CardDescription>
       </CardHeader>
-      <CardContent className="pl-2">
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+      <CardContent>
+        <ChartContainer config={chartConfig} className="h-[300px] w-full">
+          <BarChart data={chartData} margin={{ left: 12, right: 12 }}>
+            <CartesianGrid vertical={false} />
             <XAxis 
               dataKey="hour" 
-              className="text-xs"
-              tick={{ fill: 'hsl(var(--muted-foreground))' }}
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
             />
-            <YAxis 
-              className="text-xs"
-              tick={{ fill: 'hsl(var(--muted-foreground))' }}
-            />
-            <Tooltip 
-              contentStyle={{
-                backgroundColor: 'hsl(var(--popover))',
-                border: '1px solid hsl(var(--border))',
-                borderRadius: '8px'
-              }}
-            />
+            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
             <Bar 
               dataKey="users" 
-              fill="hsl(var(--chart-3))" 
-              radius={[8, 8, 0, 0]}
-              name="Usuarios"
+              fill="var(--color-users)" 
+              radius={[4, 4, 0, 0]}
             />
           </BarChart>
-        </ResponsiveContainer>
+        </ChartContainer>
       </CardContent>
     </Card>
   );

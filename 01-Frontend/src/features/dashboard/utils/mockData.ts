@@ -59,11 +59,11 @@ export const generateSalesData = (): SalesData[] => [
 ];
 
 export const generateCategoryData = (): CategoryData[] => [
-  { name: 'Electrónica', value: 35, fill: 'hsl(var(--chart-1))' },
-  { name: 'Ropa', value: 25, fill: 'hsl(var(--chart-2))' },
-  { name: 'Hogar', value: 20, fill: 'hsl(var(--chart-3))' },
-  { name: 'Deportes', value: 12, fill: 'hsl(var(--chart-4))' },
-  { name: 'Otros', value: 8, fill: 'hsl(var(--chart-5))' }
+  { name: 'Electrónica', value: 35, fill: '' },
+  { name: 'Ropa', value: 25, fill: '' },
+  { name: 'Hogar', value: 20, fill: '' },
+  { name: 'Deportes', value: 12, fill: '' },
+  { name: 'Otros', value: 8, fill: '' }
 ];
 
 export const generateUserActivity = (): UserActivity[] => [

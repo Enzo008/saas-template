@@ -61,16 +61,6 @@ export const userRoutes: Record<string, NavigationRoute> = {
 // ============================
 
 export const standaloneRoutes: Record<string, NavigationRoute> = {
-  /** Gestión de formularios */
-  'form': {
-    path: '/form',
-    component: lazy(() => import('@/features/form/pages/Form')),
-    title: 'Formularios',
-    icon: 'file-text',
-    description: 'Gestión de formularios dinámicos',
-    type: 'standalone',
-    menuRef: 'form'
-  }
 };
 
 // ============================

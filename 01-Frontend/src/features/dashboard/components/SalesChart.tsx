@@ -3,14 +3,36 @@
  */
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card';
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import type { SalesData } from '../types/dashboard.types';
+import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartConfig } from '@/shared/components/ui/chart';
+import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 
-interface SalesChartProps {
-  data: SalesData[];
-}
+const chartData = [
+  { month: 'Ene', revenue: 84000, profit: 25200 },
+  { month: 'Feb', revenue: 76000, profit: 22800 },
+  { month: 'Mar', revenue: 102000, profit: 30600 },
+  { month: 'Abr', revenue: 92000, profit: 27600 },
+  { month: 'May', revenue: 108000, profit: 32400 },
+  { month: 'Jun', revenue: 124000, profit: 37200 },
+  { month: 'Jul', revenue: 116000, profit: 34800 },
+  { month: 'Ago', revenue: 130000, profit: 39000 },
+  { month: 'Sep', revenue: 122000, profit: 36600 },
+  { month: 'Oct', revenue: 144000, profit: 43200 },
+  { month: 'Nov', revenue: 136000, profit: 40800 },
+  { month: 'Dic', revenue: 150000, profit: 45000 }
+];
 
-export const SalesChart = ({ data }: SalesChartProps) => {
+const chartConfig = {
+  revenue: {
+    label: "Ingresos",
+    color: "var(--chart-1)",
+  },
+  profit: {
+    label: "Ganancias",
+    color: "var(--chart-2)",
+  },
+} satisfies ChartConfig;
+
+export const SalesChart = () => {
   return (
     <Card className="col-span-4">
       <CardHeader>
@@ -19,54 +41,35 @@ export const SalesChart = ({ data }: SalesChartProps) => {
           Evolución mensual de ventas e ingresos del año
         </CardDescription>
       </CardHeader>
-      <CardContent className="pl-2">
-        <ResponsiveContainer width="100%" height={350}>
-          <AreaChart data={data}>
-            <defs>
-              <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(var(--chart-1))" stopOpacity={0.8}/>
-                <stop offset="95%" stopColor="hsl(var(--chart-1))" stopOpacity={0}/>
-              </linearGradient>
-              <linearGradient id="colorProfit" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(var(--chart-2))" stopOpacity={0.8}/>
-                <stop offset="95%" stopColor="hsl(var(--chart-2))" stopOpacity={0}/>
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+      <CardContent>
+        <ChartContainer config={chartConfig} className="h-[350px] w-full">
+          <AreaChart data={chartData} margin={{ left: 12, right: 12 }}>
+            <CartesianGrid vertical={false} />
             <XAxis 
               dataKey="month" 
-              className="text-xs"
-              tick={{ fill: 'hsl(var(--muted-foreground))' }}
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
             />
-            <YAxis 
-              className="text-xs"
-              tick={{ fill: 'hsl(var(--muted-foreground))' }}
-            />
-            <Tooltip 
-              contentStyle={{
-                backgroundColor: 'hsl(var(--popover))',
-                border: '1px solid hsl(var(--border))',
-                borderRadius: '8px'
-              }}
-            />
+            <ChartTooltip content={<ChartTooltipContent />} />
             <Area 
-              type="monotone" 
               dataKey="revenue" 
-              stroke="hsl(var(--chart-1))" 
-              fillOpacity={1} 
-              fill="url(#colorRevenue)"
-              name="Ingresos"
+              type="natural"
+              fill="var(--color-revenue)"
+              fillOpacity={0.4}
+              stroke="var(--color-revenue)"
+              stackId="a"
             />
             <Area 
-              type="monotone" 
               dataKey="profit" 
-              stroke="hsl(var(--chart-2))" 
-              fillOpacity={1} 
-              fill="url(#colorProfit)"
-              name="Ganancias"
+              type="natural"
+              fill="var(--color-profit)"
+              fillOpacity={0.4}
+              stroke="var(--color-profit)"
+              stackId="a"
             />
           </AreaChart>
-        </ResponsiveContainer>
+        </ChartContainer>
       </CardContent>
     </Card>
   );
