@@ -1,4 +1,4 @@
-﻿// *****************************************************************************************************
+// *****************************************************************************************************
 // Descripción       : User Controller
 // Creado por        : Enzo Gago Aguirre
 // Fecha de Creación : 10/02/2025
@@ -19,6 +19,8 @@ using saas_template.server.Controllers.Base;
 using static Helper.Types;
 using Helper;
 using saas_template.server.DataAccessObject.Core;
+// Atributos de permisos
+using saas_template.server.Attributes;
 
 namespace saas_template.server.Controllers
 {

@@ -44,17 +44,6 @@ export const userRoutes: Record<string, NavigationRoute> = {
     menuRef: 'position'
   },
 
-  /** Gestión de cargos */
-  'identity-document': {
-    path: '/identity-document',
-    component: lazy(() => import('@/features/identity-document/pages/IdentityDocument')),
-    title: 'Documento Identidad',
-    icon: 'briefcase',
-    description: 'Gestión de Documento Identidad',
-    type: 'user',
-    menuRef: 'identity-document'
-  },
-
   /** Gestión de repositorio */
   'program': {
     path: '/program',
@@ -64,17 +53,6 @@ export const userRoutes: Record<string, NavigationRoute> = {
     description: 'Gestión de Programas',
     type: 'user',
     menuRef: 'program'
-  },
-
-  /** Gestión de roles */
-  'role': {
-    path: '/role',
-    component: lazy(() => import('@/features/role/pages/Role')),
-    title: 'Roles',
-    icon: 'briefcase',
-    description: 'Gestión de Roles',
-    type: 'user',
-    menuRef: 'role'
   }
 };
 
@@ -146,26 +124,6 @@ export const featureRoutes: Record<string, Record<string, NavigationRoute>> = {
       title: 'Editar Formulario',
       icon: 'file-edit',
       description: 'Editar formulario dinámico',
-      type: 'user'
-    }
-  },
-
-  /** Rutas adicionales para Roles */
-  role: {
-    'role-create': {
-      path: '/role/create',
-      component: lazy(() => import('@/features/role/pages/RoleFormPage')),
-      title: 'Crear Rol',
-      icon: 'user-plus',
-      description: 'Crear rol',
-      type: 'user'
-    },
-    'role-edit': {
-      path: '/role/edit/:id',
-      component: lazy(() => import('@/features/role/pages/RoleFormPage')),
-      title: 'Editar Rol',
-      icon: 'user-edit',
-      description: 'Editar rol',
       type: 'user'
     }
   }

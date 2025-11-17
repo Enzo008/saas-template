@@ -73,5 +73,9 @@ namespace saas_template.server.DataAccessObject.Database.SqlServer
         {
             return new SqlServerRepositoryDAO(strCadenaConexion, clsLogDao);
         }
+        public override IPermissionRepository GetPermissionRepository()
+        {
+            return new SqlServerPermissionDAO(strCadenaConexion, clsLogDao);
+        }
     }
 }

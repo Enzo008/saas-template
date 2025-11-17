@@ -19,7 +19,7 @@ const Repository = React.memo(() => {
 
     // Hooks utilitarios (eliminan código repetitivo)
     const tableProps = useStandardTable(crudHook, tableHook);
-    const modalProps = useStandardModal(crudHook, repositoryFormFields(), 'Repository');
+    const modalProps = useStandardModal(crudHook, repositoryFormFields(), ['Repositorio', 'Repository']);
 
     return (
         <>

@@ -64,6 +64,12 @@ coverage/
 *.sw?
 .history/
 
+# AI Tools
+.kiro/
+.windsurf/
+.cursor/
+.aider/
+
 # OS generated files
 Thumbs.db
 ehthumbs.db

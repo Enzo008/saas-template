@@ -54,5 +54,6 @@ namespace saas_template.server.DataAccessObject.Core
         public abstract ILogRepository GetLogRepository();
         public abstract IUserRepository GetUserRepository();
         public abstract IFileStorageRepository GetFileStorageRepository();
+        public abstract IPermissionRepository GetPermissionRepository();
     }
 }

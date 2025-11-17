@@ -1,4 +1,4 @@
-﻿// *****************************************************************************************************
+// *****************************************************************************************************
 // Descripción       : Position Controller
 // Creado por        : Enzo Gago Aguirre
 // Fecha de Creación : 10/02/2025
@@ -17,6 +17,8 @@ using saas_template.server.Controllers.Base;
 // Libreria Helper
 using Helper;
 using saas_template.server.DataAccessObject.Core;
+// Atributos de permisos
+using saas_template.server.Attributes;
 
 namespace saas_template.server.Controllers
 {
@@ -67,6 +69,7 @@ namespace saas_template.server.Controllers
         }
 
         [HttpPut]
+        [RequirePermission("position", "02")] // Permiso de MODIFICAR
         public async Task<ActionResult<OperationResponse>> Update([FromBody] Position bPosition)
         {
             try
@@ -82,6 +85,7 @@ namespace saas_template.server.Controllers
         }
 
         [HttpDelete]
+        [RequirePermission("position", "03")] // Permiso de ELIMINAR
         public async Task<ActionResult<OperationResponse>> Delete([FromBody] Position bPosition)
         {
             try
