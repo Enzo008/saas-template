@@ -99,7 +99,3 @@ Las actualizaciones de seguridad se publicarán:
 ## 🙏 Agradecimientos
 
 Agradecemos a todos los investigadores de seguridad que reportan vulnerabilidades de forma responsable.
-
----
-
-**Última actualización**: 2025-01-19
