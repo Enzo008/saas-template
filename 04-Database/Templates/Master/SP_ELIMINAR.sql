@@ -8,13 +8,13 @@ CREATE OR ALTER PROCEDURE SP_ELIMINAR_[ENTITY]
 @P_[ENTITY]ANO          CHAR(4),
 @P_[ENTITY]COD          [DATA_TYPE],
 @P_USUMOD               VARCHAR(50),
-@P_LOGIPMAQ             VARCHAR(15),
+@P_LOGIPMAC             VARCHAR(15),
 @P_USUANO_U             CHAR(4),
 @P_USUCOD_U             CHAR(6),
 @P_USUNOM_U             VARCHAR(30),
 @P_USUAPE_U             VARCHAR(30),
-@P_DESCRIPCION_MENSAJE  NVARCHAR(MAX) OUTPUT,
-@P_TIPO_MENSAJE         CHAR(1) OUTPUT
+@P_MESSAGE_DESCRIPTION  NVARCHAR(MAX) OUTPUT,
+@P_MESSAGE_TYPE         CHAR(1) OUTPUT
 AS
 BEGIN TRY
     SET NOCOUNT ON
@@ -22,15 +22,15 @@ BEGIN TRY
     -- Validaciones de entrada
     IF @P_[ENTITY]ANO IS NULL OR LTRIM(RTRIM(@P_[ENTITY]ANO)) = ''
     BEGIN
-        SET @P_DESCRIPCION_MENSAJE = 'El año de [ENTITY] es requerido'
-        SET @P_TIPO_MENSAJE = '2'
+        SET @P_MESSAGE_DESCRIPTION = 'El año de [ENTITY] es requerido'
+        SET @P_MESSAGE_TYPE = '2'
         RETURN
     END
 
     IF @P_[ENTITY]COD IS NULL OR LTRIM(RTRIM(@P_[ENTITY]COD)) = ''
     BEGIN
-        SET @P_DESCRIPCION_MENSAJE = 'El código de [ENTITY] es requerido'
-        SET @P_TIPO_MENSAJE = '2'
+        SET @P_MESSAGE_DESCRIPTION = 'El código de [ENTITY] es requerido'
+        SET @P_MESSAGE_TYPE = '2'
         RETURN
     END
 
@@ -40,8 +40,8 @@ BEGIN TRY
                    AND [ENTITY]COD = LTRIM(RTRIM(@P_[ENTITY]COD)) 
                    AND ESTREG <> 'E')
     BEGIN
-        SET @P_DESCRIPCION_MENSAJE = 'El registro no existe en la Base de Datos'
-        SET @P_TIPO_MENSAJE = '2'
+        SET @P_MESSAGE_DESCRIPTION = 'El registro no existe en la Base de Datos'
+        SET @P_MESSAGE_TYPE = '2'
         RETURN
     END
 
@@ -53,39 +53,39 @@ BEGIN TRY
                AND [ENTITY]COD = LTRIM(RTRIM(@P_[ENTITY]COD)) 
                AND ESTREG <> 'E')
     BEGIN
-        SET @P_DESCRIPCION_MENSAJE = 'No puedes eliminar el registro hasta que elimines todas sus referencias en otras tablas del sistema'
-        SET @P_TIPO_MENSAJE = '2'
+        SET @P_MESSAGE_DESCRIPTION = 'No puedes eliminar el registro hasta que elimines todas sus referencias en otras tablas del sistema'
+        SET @P_MESSAGE_TYPE = '2'
         RETURN
     END
     */
 
     DECLARE @V_SQL                   NVARCHAR(MAX)  = '',
             @V_SQL_MENSAJE           NVARCHAR(MAX)  = '',
-            @V_NOMBRE_TABLA          NVARCHAR(300)  = 'TM_[ENTITY]',
-            @V_CODIGO_LOG_ANIO       CHAR(4)        = '',
-            @V_CODIGO_LOG            CHAR(10)       = '',
-            @V_DESCRIPCION_LOG       NVARCHAR(300)  = '',
+            @V_NAME_TABLE          NVARCHAR(300)  = 'TM_[ENTITY]',
+            @V_CODE_LOG_YEAR       CHAR(4)        = '',
+            @V_CODE_LOG            CHAR(10)       = '',
+            @V_DESCRIPTION_LOG       NVARCHAR(300)  = '',
             @V_ERROR                 NVARCHAR(MAX)  = '',
             @V_CADENA                NVARCHAR(MAX)  = '',
-            @V_CODIGO_COMPLETO       NVARCHAR(20)   = '',
-            @V_ZONA_HORARIA_OFFSET   NVARCHAR(6)    = '',
-            @V_ZONA_HORARIA_NOMBRE   NVARCHAR(50)   = '',
-            @V_ZONA_HORARIA_LOCALE   NVARCHAR(50)   = ''
+            @V_CODE_COMPLETE       NVARCHAR(20)   = '',
+            @V_TIME_ZONE_OFFSET   NVARCHAR(6)    = '',
+            @V_TIME_ZONE_NAME   NVARCHAR(50)   = '',
+            @V_TIME_ZONE_LOCALE   NVARCHAR(50)   = ''
 
     -- Obtener zona horaria del usuario
     EXEC SP_OBTENER_ZONA_HORARIA_USUARIO 
         @P_USUANO_U,
         @P_USUCOD_U,
-        @P_UBIOFFZON = @V_ZONA_HORARIA_OFFSET OUTPUT,
-        @P_UBILOC = @V_ZONA_HORARIA_LOCALE OUTPUT,
-        @P_UBINOMZON = @V_ZONA_HORARIA_NOMBRE OUTPUT
+        @P_LOCOFFZON = @V_TIME_ZONE_OFFSET OUTPUT,
+        @P_LOCLOC = @V_TIME_ZONE_LOCALE OUTPUT,
+        @P_LOCNAMZON = @V_TIME_ZONE_NAME OUTPUT
 
     -- Realizar eliminación lógica
-    SET @V_SQL = ' UPDATE ' + @V_NOMBRE_TABLA + 
+    SET @V_SQL = ' UPDATE ' + @V_NAME_TABLE + 
                  ' SET ' + 
                  ' USUMOD = ''' + LTRIM(RTRIM(UPPER(@P_USUMOD))) + ''', ' +
-                 ' FECMOD = SWITCHOFFSET(SYSDATETIME(), ''' + @V_ZONA_HORARIA_OFFSET + '''), ' +
-                 ' ZONMOD = ''' + LTRIM(RTRIM(UPPER(@V_ZONA_HORARIA_NOMBRE))) + ''', ' +
+                 ' FECMOD = SWITCHOFFSET(SYSDATETIME(), ''' + @V_TIME_ZONE_OFFSET + '''), ' +
+                 ' ZONMOD = ''' + LTRIM(RTRIM(UPPER(@V_TIME_ZONE_NAME))) + ''', ' +
                  ' ESTREG = ''E'' ' +
                  ' WHERE [ENTITY]ANO = ''' + LTRIM(RTRIM(@P_[ENTITY]ANO)) + ''' ' +
                  ' AND [ENTITY]COD = ''' + LTRIM(RTRIM(@P_[ENTITY]COD)) + ''' '
@@ -94,41 +94,41 @@ BEGIN TRY
 
     -- Obtener información del registro eliminado con JOIN si aplica
     SET @V_SQL_MENSAJE = ' SELECT @V_CADENA = ''EL [ENTITY] ['' + ENT.[FIELD1] + '']'' ' +
-                         ' FROM ' + @V_NOMBRE_TABLA + ' AS ENT ' +
+                         ' FROM ' + @V_NAME_TABLE + ' AS ENT ' +
                          -- ' INNER JOIN TB_[RELATED_TABLE] AS REL ON ENT.[RELATED_COD] = REL.[RELATED_COD] ' +
                          ' WHERE ENT.[ENTITY]ANO = ''' + LTRIM(RTRIM(@P_[ENTITY]ANO)) + ''' ' +
                          ' AND ENT.[ENTITY]COD = ''' + LTRIM(RTRIM(@P_[ENTITY]COD)) + ''' '
 
     EXEC sp_executesql @V_SQL_MENSAJE, N'@V_CADENA NVARCHAR(MAX) OUTPUT', @V_CADENA OUTPUT
 
-    SET @V_DESCRIPCION_LOG = 'ELIMINÓ ' + @V_CADENA
-    SET @V_CODIGO_COMPLETO = LTRIM(RTRIM(@P_[ENTITY]ANO)) + LTRIM(RTRIM(@P_[ENTITY]COD))
+    SET @V_DESCRIPTION_LOG = 'ELIMINÓ ' + @V_CADENA
+    SET @V_CODE_COMPLETE = LTRIM(RTRIM(@P_[ENTITY]ANO)) + LTRIM(RTRIM(@P_[ENTITY]COD))
 
     -- Registrar log de éxito
-    EXEC SP_REGISTRAR_LOG @V_DESCRIPCION_LOG, 'ELIMINAR', @P_LOGIPMAQ, @V_CODIGO_COMPLETO, @V_NOMBRE_TABLA, @V_SQL, 'EXITO',
+    EXEC SP_REGISTER_LOG @V_DESCRIPTION_LOG, 'ELIMINAR', @P_LOGIPMAC, @V_CODE_COMPLETE, @V_NAME_TABLE, @V_SQL, 'EXITO',
          @P_USUANO_U, @P_USUCOD_U, @P_USUNOM_U, @P_USUAPE_U,
-         @P_DESCRIPCION_MENSAJE = @P_DESCRIPCION_MENSAJE OUTPUT,
-         @P_TIPO_MENSAJE = @P_TIPO_MENSAJE OUTPUT,
-         @P_LOGANO = @V_CODIGO_LOG_ANIO OUTPUT,
-         @P_LOGCOD = @V_CODIGO_LOG OUTPUT
+         @P_MESSAGE_DESCRIPTION = @P_MESSAGE_DESCRIPTION OUTPUT,
+         @P_MESSAGE_TYPE = @P_MESSAGE_TYPE OUTPUT,
+         @P_LOGYEA = @V_CODE_LOG_YEAR OUTPUT,
+         @P_LOGCOD = @V_CODE_LOG OUTPUT
 
-    SET @P_DESCRIPCION_MENSAJE = 'El [ENTITY] se eliminó correctamente'
-    SET @P_TIPO_MENSAJE = '3'
+    SET @P_MESSAGE_DESCRIPTION = 'El [ENTITY] se eliminó correctamente'
+    SET @P_MESSAGE_TYPE = '3'
 
-    EXEC SP_ACTUALIZA_FECHA_FIN_Y_SQL @V_CODIGO_LOG_ANIO, @V_CODIGO_LOG, @V_SQL
+    EXEC SP_UPDATE_DATE_END_SQL @V_CODE_LOG_YEAR, @V_CODE_LOG, @V_SQL
 
 END TRY
 BEGIN CATCH
     SET @V_ERROR = LTRIM(RTRIM(UPPER(ERROR_MESSAGE())))
-    EXEC SP_REGISTRAR_LOG @V_ERROR, 'ELIMINAR', @P_LOGIPMAQ, @V_CODIGO_COMPLETO, @V_NOMBRE_TABLA, @V_SQL, 'ERROR',
+    EXEC SP_REGISTER_LOG @V_ERROR, 'ELIMINAR', @P_LOGIPMAC, @V_CODE_COMPLETE, @V_NAME_TABLE, @V_SQL, 'ERROR',
          @P_USUANO_U, @P_USUCOD_U, @P_USUNOM_U, @P_USUAPE_U,
-         @P_DESCRIPCION_MENSAJE = @P_DESCRIPCION_MENSAJE OUTPUT,
-         @P_TIPO_MENSAJE = @P_TIPO_MENSAJE OUTPUT,
-         @P_LOGANO = @V_CODIGO_LOG_ANIO OUTPUT,
-         @P_LOGCOD = @V_CODIGO_LOG OUTPUT
-    EXEC SP_ACTUALIZA_FECHA_FIN_Y_SQL @V_CODIGO_LOG_ANIO, @V_CODIGO_LOG, @V_SQL
-    SET @P_DESCRIPCION_MENSAJE = @V_ERROR
-    SET @P_TIPO_MENSAJE = '1'
+         @P_MESSAGE_DESCRIPTION = @P_MESSAGE_DESCRIPTION OUTPUT,
+         @P_MESSAGE_TYPE = @P_MESSAGE_TYPE OUTPUT,
+         @P_LOGYEA = @V_CODE_LOG_YEAR OUTPUT,
+         @P_LOGCOD = @V_CODE_LOG OUTPUT
+    EXEC SP_UPDATE_DATE_END_SQL @V_CODE_LOG_YEAR, @V_CODE_LOG, @V_SQL
+    SET @P_MESSAGE_DESCRIPTION = @V_ERROR
+    SET @P_MESSAGE_TYPE = '1'
 END CATCH
 GO
 
@@ -148,8 +148,8 @@ GO
 -- IF EXISTS (SELECT 1 FROM TM_[DEPENDENT_TABLE] 
 --            WHERE USUANO = @P_USUANO AND USUCOD = @P_USUCOD AND ESTREG <> 'E')
 -- BEGIN
---     SET @P_DESCRIPCION_MENSAJE = 'No se puede eliminar: el usuario tiene registros dependientes'
---     SET @P_TIPO_MENSAJE = '2'
+--     SET @P_MESSAGE_DESCRIPTION = 'No se puede eliminar: el usuario tiene registros dependientes'
+--     SET @P_MESSAGE_TYPE = '2'
 --     RETURN
 -- END
 -- 

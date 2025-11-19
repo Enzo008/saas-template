@@ -9,7 +9,7 @@ CREATE OR ALTER PROCEDURE SP_BUSCAR_[ENTITY]
 @P_[ENTITY]COD          CHAR(6),                -- Código de la entidad
 @P_[FIELD1]             [DATA_TYPE],            -- Campo principal de filtrado
 @P_[FIELD2]             [DATA_TYPE],            -- Campo secundario de filtrado
-@P_LOGIPMAQ             VARCHAR(15),
+@P_LOGIPMAC             VARCHAR(15),
 @P_USUANO_U             CHAR(4),
 @P_USUCOD_U             CHAR(6),
 @P_USUNOM_U             VARCHAR(30),
@@ -17,22 +17,22 @@ CREATE OR ALTER PROCEDURE SP_BUSCAR_[ENTITY]
 @P_PAGE_NUMBER          INT = NULL,
 @P_PAGE_SIZE            INT = NULL,
 @P_TOTAL_RECORDS      INT OUTPUT,
-@P_DESCRIPCION_MENSAJE  NVARCHAR(MAX) OUTPUT,
-@P_TIPO_MENSAJE         CHAR(1) OUTPUT
+@P_MESSAGE_DESCRIPTION  NVARCHAR(MAX) OUTPUT,
+@P_MESSAGE_TYPE         CHAR(1) OUTPUT
 AS
 BEGIN TRY
     SET NOCOUNT ON
 
     DECLARE @V_SQL               NVARCHAR(MAX)  = '',
-            @V_NOMBRE_TABLA      NVARCHAR(300)  = 'TM_[ENTITY]',
-            @V_CODIGO_LOG_ANIO   CHAR(4)        = '',
-            @V_CODIGO_LOG        CHAR(10)       = '',
-            @V_DESCRIPCION_LOG   NVARCHAR(300)  = '',
+            @V_NAME_TABLE      NVARCHAR(300)  = 'TM_[ENTITY]',
+            @V_CODE_LOG_YEAR   CHAR(4)        = '',
+            @V_CODE_LOG        CHAR(10)       = '',
+            @V_DESCRIPTION_LOG   NVARCHAR(300)  = '',
             @V_ERROR             NVARCHAR(MAX)  = '',
             @V_OFFSET            INT            = 0,
             @V_USAR_PAGINACION   BIT            = 0
 
-    SET @V_DESCRIPCION_LOG = 'SE BUSCÓ [ENTITY] '
+    SET @V_DESCRIPTION_LOG = 'SE BUSCÓ [ENTITY] '
 
     -- Determinar si usar paginación
     IF @P_PAGE_NUMBER IS NOT NULL AND @P_PAGE_SIZE IS NOT NULL AND @P_PAGE_SIZE > 0
@@ -118,21 +118,21 @@ BEGIN TRY
     -- Ejecutar consulta
     EXECUTE sp_executesql @V_SQL
 
-    SET @P_DESCRIPCION_MENSAJE = 'Llenado de datos exitoso'
-    SET @P_TIPO_MENSAJE = '3'
+    SET @P_MESSAGE_DESCRIPTION = 'Llenado de datos exitoso'
+    SET @P_MESSAGE_TYPE = '3'
 
 END TRY
 BEGIN CATCH
     SET @V_ERROR = LTRIM(RTRIM(UPPER(ERROR_MESSAGE())))
-    EXEC SP_REGISTRAR_LOG @V_ERROR, 'BUSCAR', @P_LOGIPMAQ, '', @V_NOMBRE_TABLA, @V_SQL, 'ERROR', 
+    EXEC SP_REGISTER_LOG @V_ERROR, 'BUSCAR', @P_LOGIPMAC, '', @V_NAME_TABLE, @V_SQL, 'ERROR', 
          @P_USUANO_U, @P_USUCOD_U, @P_USUNOM_U, @P_USUAPE_U,
-         @P_DESCRIPCION_MENSAJE = @P_DESCRIPCION_MENSAJE OUTPUT,
-         @P_TIPO_MENSAJE = @P_TIPO_MENSAJE OUTPUT,
-         @P_LOGANO = @V_CODIGO_LOG_ANIO OUTPUT,
-         @P_LOGCOD = @V_CODIGO_LOG OUTPUT
-    EXEC SP_ACTUALIZA_FECHA_FIN_Y_SQL @V_CODIGO_LOG_ANIO, @V_CODIGO_LOG, @V_SQL
-    SET @P_DESCRIPCION_MENSAJE = @V_ERROR
-    SET @P_TIPO_MENSAJE = '1'
+         @P_MESSAGE_DESCRIPTION = @P_MESSAGE_DESCRIPTION OUTPUT,
+         @P_MESSAGE_TYPE = @P_MESSAGE_TYPE OUTPUT,
+         @P_LOGYEA = @V_CODE_LOG_YEAR OUTPUT,
+         @P_LOGCOD = @V_CODE_LOG OUTPUT
+    EXEC SP_UPDATE_DATE_END_SQL @V_CODE_LOG_YEAR, @V_CODE_LOG, @V_SQL
+    SET @P_MESSAGE_DESCRIPTION = @V_ERROR
+    SET @P_MESSAGE_TYPE = '1'
 END CATCH
 GO
 
