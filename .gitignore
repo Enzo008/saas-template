@@ -17,7 +17,8 @@ desktop.ini
 
 # AI Tools
 .kiro/
-.windsurf/
+.windsurf/*
+!.windsurf/rules/
 .cursor/
 .aider/
 
