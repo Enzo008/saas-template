@@ -49,7 +49,7 @@ Esta carpeta contiene toda la lógica de base de datos del proyecto, diseñada c
 
 ### **Professional Standards**
 - **Consistent Naming**: Clear prefixes and conventions
-- **Comprehensive Logging**: Full audit trail with SP_REGISTRAR_LOG
+- **Comprehensive Logging**: Full audit trail with SP_REGISTER_LOG
 - **Error Handling**: Robust TRY/CATCH patterns
 - **Security**: Granular access control with TV_USUARIO_ACCESO
 
