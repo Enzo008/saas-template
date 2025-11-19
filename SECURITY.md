@@ -19,7 +19,7 @@ La seguridad es una prioridad. Si descubres una vulnerabilidad de seguridad, por
 
 En su lugar:
 
-1. **Envía un email** a: [Tu email aquí o usar GitHub Security Advisories]
+1. **Envía un email** a: enzoaguirre629@gmail.com
 2. **Incluye** los siguientes detalles:
    - Descripción de la vulnerabilidad
    - Pasos para reproducirla
