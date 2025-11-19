@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 Preguntas y Discusiones
+    url: https://github.com/Enzo008/saas-template/discussions
+    about: Haz preguntas o inicia discusiones sobre el proyecto
+  - name: 📚 Documentación
+    url: https://github.com/Enzo008/saas-template#readme
+    about: Lee la documentación completa del proyecto
+  - name: 🚀 Demo en Vivo
+    url: http://powermas-001-site4.atempurl.com/
+    about: Prueba la aplicación en vivo

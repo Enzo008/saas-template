@@ -2,25 +2,41 @@
 
 Full-stack application template for rapid development of enterprise SaaS applications using React, ASP.NET Core, and SQL Server.
 
+[![Live Demo](https://img.shields.io/badge/Demo-Live-success?logo=google-chrome)](http://powermas-001-site4.atempurl.com/)
 [![React](https://img.shields.io/badge/React-19.2-61DAFB?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
 [![SQL Server](https://img.shields.io/badge/SQL%20Server-2022-CC2927?logo=microsoft-sql-server)](https://www.microsoft.com/sql-server)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+> **🚀 [View Live Demo](http://powermas-001-site4.atempurl.com/)** - Full-featured enterprise SaaS template with authentication, CRUD operations, and file management.
+
 ---
 
 ## 📋 Tabla de Contenidos
 
+- [Características Principales](#-características-principales)
 - [Características](#-características)
 - [Arquitectura](#-arquitectura)
 - [Stack Tecnológico](#-stack-tecnológico)
 - [Inicio Rápido](#-inicio-rápido)
 - [Estructura del Proyecto](#-estructura-del-proyecto)
 - [Documentación](#-documentación)
-- [Guías de Desarrollo](#-guías-de-desarrollo)
 - [Contribución](#-contribución)
 - [Licencia](#-licencia)
+
+---
+
+## ✨ Características Principales
+
+🎯 **Production-Ready** - Sistema completo de autenticación JWT con roles y permisos granulares  
+🔄 **CRUD Unificado** - Hooks reutilizables con TanStack Query para todas las operaciones  
+📁 **Gestión de Archivos** - Upload/download con validación y progress tracking  
+🎨 **UI Moderna** - Radix UI + Tailwind CSS v4 con tema claro/oscuro  
+🌐 **i18n Ready** - Soporte multiidioma con i18next  
+📊 **Estado Optimizado** - TanStack Query para server state + Zustand para UI state  
+🔐 **Seguridad** - BCrypt para passwords, validación con Zod, protección CSRF  
+🚀 **Developer Experience** - TypeScript, ESLint, Hot reload, y documentación completa
 
 ---
 
@@ -177,7 +193,7 @@ Full-stack application template for rapid development of enterprise SaaS applica
 ### 1. Clonar el Repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/saas-template.git
+git clone https://github.com/Enzo008/saas-template.git
 cd saas-template
 ```
 
@@ -362,10 +378,37 @@ dotnet publish -c Release
 
 ---
 
-## Licencia
+## 🤝 Contribución
+
+Las contribuciones son bienvenidas. Para cambios importantes:
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/amazing-feature`)
+3. Commit tus cambios siguiendo los estándares del proyecto
+4. Push a la rama (`git push origin feature/amazing-feature`)
+5. Abre un Pull Request
+
+Lee [`.windsurf/rules/github-workflow.md`](.windsurf/rules/github-workflow.md) para conocer nuestros estándares de commits y workflow.
+
+---
+
+## 📄 Licencia
 
 MIT License - ver [LICENSE](LICENSE) para más detalles.
 
-## Autor
+Copyright (c) 2025 Enzo Gago Aguirre
 
-Enzo Gago Aguirre - [GitHub](https://github.com/Enzo008)
+---
+
+## 👨‍💻 Autor
+
+**Enzo Gago Aguirre**
+
+[![GitHub](https://img.shields.io/badge/GitHub-Enzo008-181717?logo=github)](https://github.com/Enzo008)
+[![Portfolio](https://img.shields.io/badge/Demo-Live-success?logo=google-chrome)](http://powermas-001-site4.atempurl.com/)
+
+---
+
+## ⭐ Dale una estrella
+
+Si este template te resultó útil, considera darle una ⭐ en GitHub. ¡Ayuda a otros desarrolladores a encontrarlo!
