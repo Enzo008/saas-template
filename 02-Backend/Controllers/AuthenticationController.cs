@@ -154,7 +154,7 @@ namespace saas_template.server.Controllers
                     var useYea = listClaimsPrincipal.Claims.FirstOrDefault(c => c.Type == "USEYEA")?.Value;
                     var useCod = listClaimsPrincipal.Claims.FirstOrDefault(c => c.Type == "USECOD")?.Value;
                     var useNam = listClaimsPrincipal.Claims.FirstOrDefault(c => c.Type == "USENAM")?.Value ?? "SYSTEM";
-                    var useLas = listClaimsPrincipal.Claims.FirstOrDefault(c => c.Type == "USELAS")?.Value ?? "SYSTEM";
+                    var useLasNam = listClaimsPrincipal.Claims.FirstOrDefault(c => c.Type == "USELASNAM")?.Value ?? "SYSTEM";
 
                     if (string.IsNullOrEmpty(useYea) || string.IsNullOrEmpty(useCod))
                     {

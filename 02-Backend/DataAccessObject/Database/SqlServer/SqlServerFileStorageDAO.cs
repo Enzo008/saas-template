@@ -199,8 +199,8 @@ namespace saas_template.server.DataAccessObject.Database.SqlServer
                     
                     if (success)
                     {
-                        var strMessage = GetOutputParameterValue(logParameters.ToList(), "@P_DESCRIPCION_MENSAJE") ?? "";
-                        var strMessageType = GetOutputParameterValue(logParameters.ToList(), "@P_TIPO_MENSAJE") ?? "1";
+                        var strMessage = GetOutputParameterValue(logParameters.ToList(), "@P_MESSAGE_DESCRIPTION") ?? "";
+                        var strMessageType = GetOutputParameterValue(logParameters.ToList(), "@P_MESSAGE_TYPE") ?? "1";
                         fileId = GetOutputParameterValue(logParameters.ToList(), "@P_FILEID") ?? "0";
                         var messageType = (MessageType)int.Parse(strMessageType);
                         
@@ -322,8 +322,8 @@ namespace saas_template.server.DataAccessObject.Database.SqlServer
                     
                     Console.WriteLine($"Archivo obtenido: {fileData.FileName}, Tamaño: {fileData.FileContent.Length} bytes");
 
-                    var strMessage = GetOutputParameterValue(logParameters.ToList(), "@P_DESCRIPCION_MENSAJE") ?? "";
-                    var strMessageType = GetOutputParameterValue(logParameters.ToList(), "@P_TIPO_MENSAJE") ?? "1";
+                    var strMessage = GetOutputParameterValue(logParameters.ToList(), "@P_MESSAGE_DESCRIPTION") ?? "";
+                    var strMessageType = GetOutputParameterValue(logParameters.ToList(), "@P_MESSAGE_TYPE") ?? "1";
                     var messageType = (MessageType)int.Parse(strMessageType);
 
                     return new OperationResponse
@@ -394,8 +394,8 @@ namespace saas_template.server.DataAccessObject.Database.SqlServer
                 var logParameters = clsLogDao.AgregarParametrosLog(parameters.ToArray(), log, OperationType.Insert);
                 if (await ExecuteTransactionAsync(strSql, CommandType.StoredProcedure, strCadenaConexion, logParameters))
                 {
-                    var strMessage = GetOutputParameterValue(logParameters.ToList(), "@P_DESCRIPCION_MENSAJE") ?? "";
-                    var strMessageType = GetOutputParameterValue(logParameters.ToList(), "@P_TIPO_MENSAJE") ?? "1";
+                    var strMessage = GetOutputParameterValue(logParameters.ToList(), "@P_MESSAGE_DESCRIPTION") ?? "";
+                    var strMessageType = GetOutputParameterValue(logParameters.ToList(), "@P_MESSAGE_TYPE") ?? "1";
                     var fileId = GetOutputParameterValue(logParameters.ToList(), "@P_FILEID") ?? "0";
                     var messageType = (MessageType)int.Parse(strMessageType);
                     
@@ -456,8 +456,8 @@ namespace saas_template.server.DataAccessObject.Database.SqlServer
                 var logParameters = clsLogDao.AgregarParametrosLog(parameters.ToArray(), log, OperationType.Delete);
                 if (await ExecuteTransactionAsync(strSql, CommandType.StoredProcedure, strCadenaConexion, logParameters))
                 {
-                    var strMessage = GetOutputParameterValue(logParameters.ToList(), "@P_DESCRIPCION_MENSAJE") ?? "";
-                    var strMessageType = GetOutputParameterValue(logParameters.ToList(), "@P_TIPO_MENSAJE") ?? "1";
+                    var strMessage = GetOutputParameterValue(logParameters.ToList(), "@P_MESSAGE_DESCRIPTION") ?? "";
+                    var strMessageType = GetOutputParameterValue(logParameters.ToList(), "@P_MESSAGE_TYPE") ?? "1";
                     var messageType = (MessageType)int.Parse(strMessageType);
                     
                     return new OperationResponse
@@ -508,8 +508,8 @@ namespace saas_template.server.DataAccessObject.Database.SqlServer
                 {
                     var dtsData = DeserializeDataSet<List<StoredFile>>(dtsDatos) ?? new List<StoredFile>();
 
-                    var strMessage = GetOutputParameterValue(logParameters.ToList(), "@P_DESCRIPCION_MENSAJE") ?? "";
-                    var strMessageType = GetOutputParameterValue(logParameters.ToList(), "@P_TIPO_MENSAJE") ?? "1";
+                    var strMessage = GetOutputParameterValue(logParameters.ToList(), "@P_MESSAGE_DESCRIPTION") ?? "";
+                    var strMessageType = GetOutputParameterValue(logParameters.ToList(), "@P_MESSAGE_TYPE") ?? "1";
                     var messageType = (MessageType)int.Parse(strMessageType);
 
                     return new OperationResponse

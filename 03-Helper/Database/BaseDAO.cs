@@ -97,8 +97,8 @@ namespace Helper
         protected OperationResponse CreateResponseFromParameters(List<SqlParameter> parameters, object? data = null)
         {
             var totalCount = GetOutputParameterValue(parameters, "@P_TOTAL_RECORDS");
-            var strMessage = GetOutputParameterValue(parameters, "@P_DESCRIPCION_MENSAJE") ?? "";
-            var strMessageType = GetOutputParameterValue(parameters, "@P_TIPO_MENSAJE") ?? "1";
+            var strMessage = GetOutputParameterValue(parameters, "@P_MESSAGE_DESCRIPTION") ?? "";
+            var strMessageType = GetOutputParameterValue(parameters, "@P_MESSAGE_TYPE") ?? "1";
             var messageType = (MessageType)int.Parse(strMessageType);
 
             return new OperationResponse

@@ -28,21 +28,21 @@ namespace saas_template.server.DataAccessObject.Database.SqlServer
             parameters.AddRange(parametrosExistentes);
 
             // Agregar los parámetros de log
-            AddParameter(parameters, "@P_LOGIPMAQ", log.LogIpMac);
+            AddParameter(parameters, "@P_LOGIPMAC", log.LogIpMac);
             AddParameter(parameters, "@P_USEYEA_U", log.UseYea);
             AddParameter(parameters, "@P_USECOD_U", log.UseCod);
             AddParameter(parameters, "@P_USENAM_U", log.UseNam);
-            AddParameter(parameters, "@P_USELAS_U", log.UseLas);
+            AddParameter(parameters, "@P_USELASNAM_U", log.UseLasNam);
 
             // Agregar parámetros de usuario según el tipo de operación
             switch (operationType)
             {
                 case OperationType.Insert:
-                    AddParameter(parameters, "@P_USEING", $"{log.UseNam} {log.UseLas}");
+                    AddParameter(parameters, "@P_USECRE", $"{log.UseNam} {log.UseLasNam}");
                     break;
                 case OperationType.Update:
                 case OperationType.Delete:
-                    AddParameter(parameters, "@P_USEMOD", $"{log.UseNam} {log.UseLas}");
+                    AddParameter(parameters, "@P_USEUPD", $"{log.UseNam} {log.UseLasNam}");
                     break;
             }
 
@@ -52,8 +52,8 @@ namespace saas_template.server.DataAccessObject.Database.SqlServer
             }
             
             // Agregar los parámetros de salida con tamaños específicos
-            AddOutputParameter(parameters, "@P_DESCRIPCION_MENSAJE", SqlDbType.NVarChar, 1000);
-            AddOutputParameter(parameters, "@P_TIPO_MENSAJE", SqlDbType.Char, 1);
+            AddOutputParameter(parameters, "@P_MESSAGE_DESCRIPTION", SqlDbType.NVarChar, 1000);
+            AddOutputParameter(parameters, "@P_MESSAGE_TYPE", SqlDbType.Char, 1);
 
             return parameters.ToArray();
         }

@@ -115,7 +115,7 @@ namespace saas_template.server.DataAccessObject.Database.SqlServer
                 
                 AddTableParameter(parameters, "@P_CAMPOS", camposDataTable, "TT_FORMULARIO_CAMPO");
 
-                // Parámetros de salida específicos del SP (SqlServerLogDAO ya agrega @P_DESCRIPCION_MENSAJE y @P_TIPO_MENSAJE)
+                // Parámetros de salida específicos del SP (SqlServerLogDAO ya agrega @P_MESSAGE_DESCRIPTION y @P_MESSAGE_TYPE)
                 AddOutputParameter(parameters, "@P_FORMASYEA_OUT", SqlDbType.Char, 4);
                 AddOutputParameter(parameters, "@P_FORMASCOD_OUT", SqlDbType.Char, 6);
 

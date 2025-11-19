@@ -39,8 +39,8 @@ namespace saas_template.server.DataAccessObject.Database.SqlServer
             {
                 // Solo enviamos el correo, la verificación de contraseña se hará en el controller
                 AddParameter(parameters, "@P_USEEMA", useEma);
-                AddOutputParameter(parameters, "@P_DESCRIPCION_MENSAJE", SqlDbType.VarChar, 250);
-                AddOutputParameter(parameters, "@P_TIPO_MENSAJE", SqlDbType.Int);
+                AddOutputParameter(parameters, "@P_MESSAGE_DESCRIPTION", SqlDbType.VarChar, 250);
+                AddOutputParameter(parameters, "@P_MESSAGE_TYPE", SqlDbType.Int);
 
                 strSql = "SP_START_SESSION";
 
@@ -50,8 +50,8 @@ namespace saas_template.server.DataAccessObject.Database.SqlServer
                     var data = DeserializeDataSetToList<User>(dtsDatos) ?? new List<User>();
                     var User = data.FirstOrDefault();
 
-                    var strMessage = GetOutputParameterValue(parameters.ToList(), "@P_DESCRIPCION_MENSAJE") ?? "";
-                    var strMessageType = GetOutputParameterValue(parameters.ToList(), "@P_TIPO_MENSAJE") ?? "1";
+                    var strMessage = GetOutputParameterValue(parameters.ToList(), "@P_MESSAGE_DESCRIPTION") ?? "";
+                    var strMessageType = GetOutputParameterValue(parameters.ToList(), "@P_MESSAGE_TYPE") ?? "1";
                     var messageType = (MessageType)int.Parse(strMessageType);
 
                     Console.WriteLine("Mensaje: " + strMessage);
@@ -97,8 +97,8 @@ namespace saas_template.server.DataAccessObject.Database.SqlServer
             {
                 AddParameter(parameters, "@P_USEYEA", useYea);
                 AddParameter(parameters, "@P_USECOD", useCod);
-                AddOutputParameter(parameters, "@P_DESCRIPCION_MENSAJE", SqlDbType.VarChar, 250);
-                AddOutputParameter(parameters, "@P_TIPO_MENSAJE", SqlDbType.Int);
+                AddOutputParameter(parameters, "@P_MESSAGE_DESCRIPTION", SqlDbType.VarChar, 250);
+                AddOutputParameter(parameters, "@P_MESSAGE_TYPE", SqlDbType.Int);
 
                 strSql = "SP_VALIDATE_SESSION";
 
@@ -108,8 +108,8 @@ namespace saas_template.server.DataAccessObject.Database.SqlServer
                     var data = DeserializeDataSetToList<User>(dtsDatos) ?? new List<User>();
                     var User = data.FirstOrDefault();
 
-                    var strMessage = GetOutputParameterValue(parameters.ToList(), "@P_DESCRIPCION_MENSAJE") ?? "";
-                    var strMessageType = GetOutputParameterValue(parameters.ToList(), "@P_TIPO_MENSAJE") ?? "1";
+                    var strMessage = GetOutputParameterValue(parameters.ToList(), "@P_MESSAGE_DESCRIPTION") ?? "";
+                    var strMessageType = GetOutputParameterValue(parameters.ToList(), "@P_MESSAGE_TYPE") ?? "1";
                     var messageType = (MessageType)int.Parse(strMessageType);
 
                     return new OperationResponse
@@ -152,16 +152,16 @@ namespace saas_template.server.DataAccessObject.Database.SqlServer
                 AddParameter(parameters, "@P_USEYEA", bUser.UseYea);
                 AddParameter(parameters, "@P_USECOD", bUser.UseCod);
                 AddParameter(parameters, "@P_USEPAS", bUser.UsePas);
-                AddOutputParameter(parameters, "@P_DESCRIPCION_MENSAJE", SqlDbType.VarChar, 250);
-                AddOutputParameter(parameters, "@P_TIPO_MENSAJE", SqlDbType.Int);
+                AddOutputParameter(parameters, "@P_MESSAGE_DESCRIPTION", SqlDbType.VarChar, 250);
+                AddOutputParameter(parameters, "@P_MESSAGE_TYPE", SqlDbType.Int);
 
                 strSql = "SP_CHANGE_PASSWORD_TEST";
 
                 if (await ExecuteTransactionAsync(strSql, CommandType.StoredProcedure, 
                     strCadenaConexion, parameters.ToArray()))
                 {
-                    var strMessage = GetOutputParameterValue(parameters.ToList(), "@P_DESCRIPCION_MENSAJE") ?? "";
-                    var strMessageType = GetOutputParameterValue(parameters.ToList(), "@P_TIPO_MENSAJE") ?? "1";
+                    var strMessage = GetOutputParameterValue(parameters.ToList(), "@P_MESSAGE_DESCRIPTION") ?? "";
+                    var strMessageType = GetOutputParameterValue(parameters.ToList(), "@P_MESSAGE_TYPE") ?? "1";
                     var messageType = (MessageType)int.Parse(strMessageType);
 
                     return new OperationResponse

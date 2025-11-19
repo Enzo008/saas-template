@@ -85,7 +85,7 @@ namespace saas_template.server.Models
         /// <summary>
         /// Last name of the user who performed the action
         /// </summary>
-        public string? UseLas { get; set; }
+        public string? UseLasNam { get; set; }
 
         /// <summary>
         /// Avatar of the user who performed the action

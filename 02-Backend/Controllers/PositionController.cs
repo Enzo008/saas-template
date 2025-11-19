@@ -69,7 +69,6 @@ namespace saas_template.server.Controllers
         }
 
         [HttpPut]
-        [RequirePermission("position", "02")] // Permiso de MODIFICAR
         public async Task<ActionResult<OperationResponse>> Update([FromBody] Position bPosition)
         {
             try
@@ -85,7 +84,6 @@ namespace saas_template.server.Controllers
         }
 
         [HttpDelete]
-        [RequirePermission("position", "03")] // Permiso de ELIMINAR
         public async Task<ActionResult<OperationResponse>> Delete([FromBody] Position bPosition)
         {
             try

@@ -26,7 +26,7 @@ namespace saas_template.server.DataAccessObject.Helper
                 UseYea = clsUser.FindFirst("USEYEA")?.Value ?? DateTime.Now.Year.ToString(),
                 UseCod = clsUser.FindFirst("USECOD")?.Value ?? "SYSTEM",
                 UseNam = clsUser.FindFirst("USENAM")?.Value ?? "SYSTEM",
-                UseLas = clsUser.FindFirst("USELAS")?.Value ?? "SYSTEM"
+                UseLasNam = clsUser.FindFirst("USELASNAM")?.Value ?? "SYSTEM"
             };
         }
     }
