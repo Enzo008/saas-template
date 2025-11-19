@@ -48,9 +48,9 @@ export const userRoutes: Record<string, NavigationRoute> = {
   'program': {
     path: '/program',
     component: lazy(() => import('@/features/repository/pages/Repository')),
-    title: 'Programas',
+    title: 'Repositorio',
     icon: 'briefcase',
-    description: 'Gestión de Programas',
+    description: 'Gestión de repositorio',
     type: 'user',
     menuRef: 'program'
   }
@@ -97,26 +97,6 @@ export const featureRoutes: Record<string, Record<string, NavigationRoute>> = {
       type: 'user'
     }
   },
-
-  /** Rutas adicionales para Forms */
-  form: {
-    'form-create': {
-      path: '/form/create',
-      component: lazy(() => import('@/features/form/pages/FormMultiStepPage')),
-      title: 'Crear Formulario',
-      icon: 'file-plus',
-      description: 'Crear nuevo formulario dinámico',
-      type: 'user'
-    },
-    'form-edit': {
-      path: '/form/edit/:id',
-      component: lazy(() => import('@/features/form/pages/FormMultiStepPage')),
-      title: 'Editar Formulario',
-      icon: 'file-edit',
-      description: 'Editar formulario dinámico',
-      type: 'user'
-    }
-  }
 };
 
 // ============================
